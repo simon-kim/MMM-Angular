@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "/node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "test": "node_modules/grunt-cli/bin/grunt",
     "start": "node server.js"
   },
   "author": "Simon Kim",
