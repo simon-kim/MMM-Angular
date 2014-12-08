@@ -1,4 +1,7 @@
 {
+  "node":true,
+  "undef": true,
+  "unused": true,
   "globals": {
     "describe"   : false,
     "it"         : false,
@@ -10,7 +13,8 @@
     "after"      : false,
     "afterEach"  : false,
     "equal"      : false,
-    "angular"    : true
+    "angular"    : false,
+    "expect"     : true
   },
   "globalstrict": true,
   "quotmark": false,
