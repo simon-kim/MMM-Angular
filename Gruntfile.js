@@ -7,11 +7,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-karma');
 
   grunt.initConfig({
     jshint: {
       all: ['server.js', 'Gruntfile.js', 'test/api/*.js', 'lib/*.js',
-      'app/**/*.js', 'routes/*.js'],
+      'app/**/*.js', 'routes/*.js', 'test/client/*.js'],
       options: {
         jshintrc: true
       }
@@ -19,14 +20,14 @@ module.exports = function(grunt) {
 
     jscs: {
       src: ['server.js', 'Gruntfile.js', 'test/api/*.js', 'lib/*.js',
-      'app/**/*.js', 'routes/*.js'],
+      'app/**/*.js', 'routes/*.js', 'test/client/*.js'],
       options: {
         config: '.jscsrc'
       }
     },
 
     simplemocha: {
-      src: ['test/**/*.js'],
+      src: ['test/api/*.js'],
       options: {
         timeout: 3000
       }
@@ -63,11 +64,20 @@ module.exports = function(grunt) {
           transform: ['debowerify']
         }
       }
+    },
+
+    karma: {
+      unit: { configFile: 'karma.conf.js' },
+      continuous: {
+        configFile: 'karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS', 'Chrome']
+      }
     }
   });
 
   grunt.registerTask('test', ['jshint', 'jscs', 'simplemocha']);
-  grunt.registerTask('build:test', ['browserify:test']);
+  grunt.registerTask('test:client', ['browserify:test', 'karma:unit']);
   grunt.registerTask('build:dev', ['clean:dev', 'browserify:dev', 'copy:dev']);
   grunt.registerTask('default', ['test']);
 };
